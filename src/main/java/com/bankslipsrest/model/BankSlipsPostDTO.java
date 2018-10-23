@@ -1,7 +1,7 @@
 package com.bankslipsrest.model;
 
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.validation.constraints.NotNull;
 

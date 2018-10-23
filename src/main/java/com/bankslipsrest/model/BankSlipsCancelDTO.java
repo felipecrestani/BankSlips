@@ -11,5 +11,5 @@ public class BankSlipsCancelDTO{
     @NotNull
     private UUID id;
     @NotNull
-    private String status;
+    private BankSlipsPaymentStatus status;
 }

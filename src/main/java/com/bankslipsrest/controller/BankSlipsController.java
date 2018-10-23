@@ -4,6 +4,7 @@ import java.util.UUID;
 
 import com.bankslipsrest.model.BankSlips;
 import com.bankslipsrest.model.BankSlipsCancelDTO;
+import com.bankslipsrest.model.BankSlipsDetailsDTO;
 import com.bankslipsrest.model.BankSlipsPayDTO;
 import com.bankslipsrest.model.BankSlipsPostDTO;
 import com.bankslipsrest.service.BankSlipsService;
@@ -29,8 +30,8 @@ public class BankSlipsController{
     private BankSlipsService service;
 
     @GetMapping("bankslips/{id}")
-    public ResponseEntity<BankSlips> getById(@PathVariable UUID id){
-        return service.getById(id).isPresent() ? new ResponseEntity<>(service.getById(id).get(), HttpStatus.OK) : new ResponseEntity(HttpStatus.NOT_FOUND);
+    public ResponseEntity<BankSlipsDetailsDTO> getById(@PathVariable UUID id){
+        return service.getById(id) != null ? new ResponseEntity<BankSlipsDetailsDTO>(service.getById(id), HttpStatus.OK) : new ResponseEntity(HttpStatus.NOT_FOUND);
     }
 
     @DeleteMapping("bankslips/{id}")
