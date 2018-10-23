@@ -35,7 +35,7 @@ public class BankSlipsController{
     }
 
     @DeleteMapping("bankslips/{id}")
-    @ResponseStatus(code = HttpStatus.OK)
+    @ResponseStatus(code = HttpStatus.NO_CONTENT)
     public void deleteById(@PathVariable UUID id){
         service.deleteById(id);
     }

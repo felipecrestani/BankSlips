@@ -1,0 +1,30 @@
+{
+    "run": {
+        "default": "",
+        "items": [
+            {
+                "name": "banksliprest",
+                "projectName": "banksliprest",
+                "workingDirectory": "c:\\Java\\BankSlipsRest\\banksliprest",
+                "args": [],
+                "vmargs": [],
+                "env": {},
+                "preLaunchTask": ""
+            }
+        ]
+    },
+    "debug": {
+        "default": "",
+        "items": [
+            {
+                "name": "banksliprest",
+                "projectName": "banksliprest",
+                "workingDirectory": "c:\\Java\\BankSlipsRest\\banksliprest",
+                "args": [],
+                "vmargs": [],
+                "env": {},
+                "preLaunchTask": ""
+            }
+        ]
+    }
+}
