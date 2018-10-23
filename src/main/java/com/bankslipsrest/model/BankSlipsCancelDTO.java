@@ -7,7 +7,7 @@ import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 @Data
-public class BankSlipsPutDTO{
+public class BankSlipsCancelDTO{
     @NotNull
     private UUID id;
     @NotNull

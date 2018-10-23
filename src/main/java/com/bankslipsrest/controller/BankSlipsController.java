@@ -1,11 +1,11 @@
 package com.bankslipsrest.controller;
 
-import java.util.Optional;
 import java.util.UUID;
 
 import com.bankslipsrest.model.BankSlips;
+import com.bankslipsrest.model.BankSlipsCancelDTO;
+import com.bankslipsrest.model.BankSlipsPayDTO;
 import com.bankslipsrest.model.BankSlipsPostDTO;
-import com.bankslipsrest.model.BankSlipsPutDTO;
 import com.bankslipsrest.service.BankSlipsService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,13 +40,19 @@ public class BankSlipsController{
     }
     
     @PostMapping("bankslips")
-    public BankSlips createBankSlips(@RequestBody BankSlipsPostDTO dto){
-        return service.createBankSlips(dto);
+    public ResponseEntity<BankSlips> createBankSlips(@RequestBody BankSlipsPostDTO dto){
+        BankSlips entity = service.createBankSlips(dto);
+            return new ResponseEntity<BankSlips>(entity,HttpStatus.CREATED);
     }
 
     @PutMapping("bankslips")
-    public BankSlips cancelBankSlips(@RequestBody BankSlipsPutDTO dto ){
+    public BankSlips cancelBankSlips(@RequestBody BankSlipsCancelDTO dto ){
         return service.cancelBankSlips(dto);
+    }
+
+    @PostMapping("bankslips/{id}")
+    public BankSlips payBankSlips(@PathVariable UUID id, @RequestBody BankSlipsPayDTO dto ){
+        return service.payBankSlips(id, dto);
     }
 
 }

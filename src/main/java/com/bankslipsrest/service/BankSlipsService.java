@@ -5,7 +5,8 @@ import java.util.UUID;
 
 import com.bankslipsrest.model.BankSlips;
 import com.bankslipsrest.model.BankSlipsPostDTO;
-import com.bankslipsrest.model.BankSlipsPutDTO;
+import com.bankslipsrest.model.BankSlipsCancelDTO;
+import com.bankslipsrest.model.BankSlipsPayDTO;
 import com.bankslipsrest.repository.BankSlipsRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,10 +35,17 @@ public class BankSlipsService{
         return repository.save(entity);
     }
 
-    public BankSlips cancelBankSlips(BankSlipsPutDTO dto)
+    public BankSlips cancelBankSlips(BankSlipsCancelDTO dto)
     {       
         BankSlips entity = repository.getOne(dto.getId());        
         entity.setStatus(dto.getStatus());
+        return repository.saveAndFlush(entity);
+    }
+
+    public BankSlips payBankSlips(UUID id, BankSlipsPayDTO dto)
+    {       
+        BankSlips entity = repository.getOne(id);        
+        entity.setDueDate(dto.getPaymentDate());
         return repository.saveAndFlush(entity);
     }
 }
