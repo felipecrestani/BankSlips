@@ -5,7 +5,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.Optional;
+import java.util.List;
 import java.util.UUID;
 
 import javax.persistence.NoResultException;
@@ -41,6 +41,11 @@ public class BankSlipsService{
         dto.setFine(calculateFine(entity));
         return dto;
     }
+
+    public List<BankSlips> getAll(){
+        return repository.findAll();
+    }
+    
 
     private BigDecimal calculateFine(BankSlips entity) {
         LocalDate dueDate = toLocalDate(entity.getDueDate());

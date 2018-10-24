@@ -1,7 +1,9 @@
 package com.bankslipsrest.controller;
 
+import java.util.List;
 import java.util.UUID;
 
+import com.bankslipsrest.exception.ApiException;
 import com.bankslipsrest.model.BankSlips;
 import com.bankslipsrest.model.BankSlipsCancelDTO;
 import com.bankslipsrest.model.BankSlipsDetailsDTO;
@@ -29,32 +31,32 @@ import io.swagger.annotations.ApiResponses;
 
 @Api("Bankslips")
 @RestController
-@RequestMapping("rest")
+@RequestMapping("rest/bankslips")
 public class BankSlipsController{
   
     @Autowired
     private BankSlipsService service;
 
-    
     @ApiOperation(value = "Find Bank Slips by Id)")
 	@ApiResponses(value = { 
             @ApiResponse(code = 204, message = "No content"), 
             @ApiResponse(code = 404, message = "Bankslip not found with the specified id") 
 	})
-    @GetMapping(value =  "bankslips/{id}/payments" , produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<BankSlipsDetailsDTO> getById(@PathVariable UUID id){
+    @GetMapping(value = "{id}/payments", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<BankSlipsDetailsDTO> getById(@PathVariable UUID id) throws ApiException{
         BankSlipsDetailsDTO response =  service.getById(id);
-
-        if(response == null)
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
-
         return new ResponseEntity<BankSlipsDetailsDTO>(response, HttpStatus.NO_CONTENT);
     }
 
-    @DeleteMapping("bankslips/{id}")
-    public void deleteById(@PathVariable UUID id){
-        service.deleteById(id);
-    }
+    @ApiOperation(value = "Retorna uma lista de boletos)")
+	@ApiResponses(value = { 
+			@ApiResponse(code = 200, message = "OK") 
+	})
+	@GetMapping(value = "", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public ResponseEntity<List<BankSlips>> get() throws ApiException{
+		List<BankSlips> bankSlipsPage = service.getAll();
+		return ResponseEntity.ok(bankSlipsPage);
+	}
     
     @ApiOperation(value = "Create a Bank Slips")
 	@ApiResponses(value = { 
@@ -62,8 +64,8 @@ public class BankSlipsController{
 			@ApiResponse(code = 400, message = "Bankslip not provided in the request body"), 
 			@ApiResponse(code = 422, message = "Invalid bankslip provided.The possible reasons are: A field of the provided bankslip was null or with invalid values")
 	})
-    @PostMapping(value = "bankslips", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<BankSlips> createBankSlips(@RequestBody BankSlipsPostDTO dto){
+    @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<BankSlips> createBankSlips(@RequestBody BankSlipsPostDTO dto) throws ApiException{
         BankSlips entity = service.createBankSlips(dto);
         return new ResponseEntity<BankSlips>(entity,HttpStatus.CREATED);
     }
@@ -73,13 +75,9 @@ public class BankSlipsController{
             @ApiResponse(code = 204, message = "Bankslip canceled"), 
             @ApiResponse(code = 404, message = "Bankslip not found with the specified i") 
 	})
-    @PutMapping(value = "bankslips", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<BankSlips> cancelBankSlips(@RequestBody BankSlipsCancelDTO dto ){
+    @PutMapping(value = "", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<BankSlips> cancelBankSlips(@RequestBody BankSlipsCancelDTO dto ) throws ApiException{
         BankSlips bankSlips = service.cancelBankSlips(dto);
-
-        if(bankSlips == null)
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
-
         return new ResponseEntity<BankSlips>(bankSlips,HttpStatus.CREATED);
     }
 
@@ -88,13 +86,9 @@ public class BankSlipsController{
             @ApiResponse(code = 204, message = "No content"), 
             @ApiResponse(code = 404, message = "Bankslip not found with the specified id") 
 	})
-    @PostMapping(value = "bankslips/{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE))
-    public ResponseEntity<BankSlips> payBankSlips(@PathVariable UUID id, @RequestBody BankSlipsPayDTO dto ){
+    @PostMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    public ResponseEntity<BankSlips> payBankSlips(@PathVariable UUID id, @RequestBody BankSlipsPayDTO dto ) throws ApiException{
         BankSlips bankSlips = service.payBankSlips(id, dto);
-
-        if(bankSlips == null)
-            return new ResponseEntity(HttpStatus.NOT_FOUND);
-
         return new ResponseEntity<BankSlips>(bankSlips,HttpStatus.NO_CONTENT);
     }
 
