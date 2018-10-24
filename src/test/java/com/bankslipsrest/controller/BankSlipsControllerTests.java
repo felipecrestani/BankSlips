@@ -1,5 +1,7 @@
 package com.bankslipsrest.controller;
 
+import static org.assertj.core.api.Assertions.assertThat;
+
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.UUID;
@@ -27,6 +29,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class BankSlipsControllerTests {
 
 	private MockMvc mockMvc;
+
 	
 	@Autowired
 	private BankSlipsController bankSlipsController;
@@ -54,8 +57,13 @@ public class BankSlipsControllerTests {
 	@Test
 	@Transactional
 	public void testGETBankSlipsByIdNotFound() throws Exception {
-		this.mockMvc.perform(MockMvcRequestBuilders.get("/rest/bankslips/{id}", UUID.randomUUID()))
-		.andExpect(MockMvcResultMatchers.status().isNotFound());
+		try {
+			this.mockMvc.perform(MockMvcRequestBuilders.get("/rest/bankslips/{id}/", UUID.randomUUID()))
+			.andExpect(MockMvcResultMatchers.status().isNotFound());
+		} catch (Exception e) {
+			assertThat(e.getCause()).hasMessage("Bankslip not found with the specified id");
+		}
+
 	}
 
 	@Test
@@ -63,7 +71,7 @@ public class BankSlipsControllerTests {
 	public void testGETBankSlipsById() throws Exception {
 		BankSlips bs = bankSlipsController.createBankSlips(bankSlipsPostDTO).getBody();
 		this.bankslip = bs;		
-		this.mockMvc.perform(MockMvcRequestBuilders.get("/rest/bankslips/{id}", bankslip.getId()))
+		this.mockMvc.perform(MockMvcRequestBuilders.get("/rest/bankslips/{id}/", bankslip.getId()))
 		.andExpect(MockMvcResultMatchers.status().isOk());
 	}
 

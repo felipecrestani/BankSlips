@@ -15,7 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,15 +36,15 @@ public class BankSlipsController{
     @Autowired
     private BankSlipsService service;
 
-    @ApiOperation(value = "Find Bank Slips by Id)")
+    @ApiOperation(value = "Get Bank Slips by Id)")
 	@ApiResponses(value = { 
             @ApiResponse(code = 204, message = "No content"), 
             @ApiResponse(code = 404, message = "Bankslip not found with the specified id") 
 	})
-    @GetMapping(value = "{id}/payments", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @GetMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<BankSlipsDetailsDTO> getById(@PathVariable UUID id) throws ApiException{
         BankSlipsDetailsDTO response =  service.getById(id);
-        return new ResponseEntity<BankSlipsDetailsDTO>(response, HttpStatus.NO_CONTENT);
+        return new ResponseEntity<BankSlipsDetailsDTO>(response, HttpStatus.OK);
     }
 
     @ApiOperation(value = "Retorna uma lista de boletos)")
