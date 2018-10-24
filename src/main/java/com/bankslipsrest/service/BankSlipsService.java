@@ -8,6 +8,7 @@ import java.util.Date;
 import java.util.Optional;
 import java.util.UUID;
 
+import javax.persistence.NoResultException;
 import javax.transaction.Transactional;
 
 import com.bankslipsrest.model.BankSlips;
@@ -28,19 +29,16 @@ public class BankSlipsService{
     private BankSlipsRepository repository;
 
     public BankSlipsDetailsDTO getById(UUID id){
-        Optional<BankSlips> entity = repository.findById(id);
-
-        if(!entity.isPresent())
-            return null;
+        BankSlips entity = repository.findById(id).orElseThrow(() -> new NoResultException("Bankslip not found with the specified id"));
 
         BankSlipsDetailsDTO dto = new BankSlipsDetailsDTO();
-        dto.setId(entity.get().getId());
-        dto.setDueDate(entity.get().getDueDate());
-        dto.setPayment_date(entity.get().getPaymentDate());
-        dto.setTotalInCents(entity.get().getTotalInCents());
-        dto.setCustomer(entity.get().getCustomer());
-        dto.setStatus(entity.get().getStatus());
-        dto.setFine(calculateFine(entity.get()));
+        dto.setId(entity.getId());
+        dto.setDueDate(entity.getDueDate());
+        dto.setPayment_date(entity.getPaymentDate());
+        dto.setTotalInCents(entity.getTotalInCents());
+        dto.setCustomer(entity.getCustomer());
+        dto.setStatus(entity.getStatus());
+        dto.setFine(calculateFine(entity));
         return dto;
     }
 
@@ -77,14 +75,14 @@ public class BankSlipsService{
 
     public BankSlips cancelBankSlips(BankSlipsCancelDTO dto)
     {       
-        BankSlips entity = repository.getOne(dto.getId());        
+        BankSlips entity = repository.findById(dto.getId()).orElseThrow(() -> new NoResultException("Bankslip not found with the specified id"));        
         entity.setStatus(BankSlipsPaymentStatus.CANCELED);
         return repository.saveAndFlush(entity);
     }
 
     public BankSlips payBankSlips(UUID id, BankSlipsPayDTO dto)
     {       
-        BankSlips entity = repository.getOne(id);
+        BankSlips entity = repository.findById(id).orElseThrow(() -> new NoResultException("Bankslip not found with the specified id"));
         entity.setStatus(BankSlipsPaymentStatus.PAID);    
         entity.setDueDate(dto.getPaymentDate());
         return repository.saveAndFlush(entity);
