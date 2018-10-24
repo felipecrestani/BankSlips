@@ -1,20 +1,17 @@
 package com.bankslipsrest.controller;
 
 import java.math.BigDecimal;
-import java.sql.Date;
-import java.util.UUID;
+import java.util.Date;
 
 import com.bankslipsrest.model.BankSlips;
 import com.bankslipsrest.model.BankSlipsPostDTO;
 
-import org.hibernate.Hibernate;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
@@ -26,7 +23,6 @@ import org.springframework.transaction.annotation.Transactional;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @TestPropertySource(locations="classpath:test.properties") 
-@Transactional
 public class BankSlipsControllerTests {
 
 	private MockMvc mockMvc;
@@ -43,7 +39,7 @@ public class BankSlipsControllerTests {
 
 		bankSlipsPostDTO = new BankSlipsPostDTO();
 		bankSlipsPostDTO.setCustomer("Dents Company S.A");
-		bankSlipsPostDTO.setDueDate(Date.valueOf("2018-10-01"));
+		bankSlipsPostDTO.setDueDate(new Date(2018,10,1));
 		bankSlipsPostDTO.setTotalInCents(BigDecimal.valueOf(1000));
 	}
 
@@ -61,6 +57,7 @@ public class BankSlipsControllerTests {
 	// }
 
 	@Test
+	@Transactional
 	public void testGETBankSlipsById() throws Exception {
 		BankSlips bs = bankSlipsController.createBankSlips(bankSlipsPostDTO).getBody();
 		this.bankslip = bs;		

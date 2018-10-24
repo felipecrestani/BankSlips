@@ -30,7 +30,12 @@ public class BankSlipsController{
 
     @GetMapping("bankslips/{id}")
     public ResponseEntity<BankSlipsDetailsDTO> getById(@PathVariable UUID id){
-        return service.getById(id) != null ? new ResponseEntity<BankSlipsDetailsDTO>(service.getById(id), HttpStatus.OK) : new ResponseEntity(HttpStatus.NOT_FOUND);
+        BankSlipsDetailsDTO response =  service.getById(id);
+
+        if(response == null)
+            return new ResponseEntity(HttpStatus.NOT_FOUND);
+
+        return new ResponseEntity<BankSlipsDetailsDTO>(response, HttpStatus.OK);
     }
 
     @DeleteMapping("bankslips/{id}")
