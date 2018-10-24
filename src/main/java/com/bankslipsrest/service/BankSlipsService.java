@@ -7,10 +7,13 @@ import java.time.ZoneId;
 import java.util.Date;
 import java.util.UUID;
 
+import javax.transaction.Transactional;
+
 import com.bankslipsrest.model.BankSlips;
 import com.bankslipsrest.model.BankSlipsCancelDTO;
 import com.bankslipsrest.model.BankSlipsDetailsDTO;
 import com.bankslipsrest.model.BankSlipsPayDTO;
+import com.bankslipsrest.model.BankSlipsPaymentStatus;
 import com.bankslipsrest.model.BankSlipsPostDTO;
 import com.bankslipsrest.repository.BankSlipsRepository;
 
@@ -57,11 +60,13 @@ public class BankSlipsService{
         repository.deleteById(id);
     }
 
+    @Transactional
     public BankSlips createBankSlips(BankSlipsPostDTO dto){
         BankSlips entity = new BankSlips();
         entity.setDueDate(dto.getDueDate());
         entity.setTotalInCents(dto.getTotalInCents());
         entity.setCustomer(dto.getCustomer());
+        entity.setStatus(BankSlipsPaymentStatus.PENDING);
 
         return repository.save(entity);
     }
@@ -69,13 +74,14 @@ public class BankSlipsService{
     public BankSlips cancelBankSlips(BankSlipsCancelDTO dto)
     {       
         BankSlips entity = repository.getOne(dto.getId());        
-        entity.setStatus(dto.getStatus());
+        entity.setStatus(BankSlipsPaymentStatus.CANCELED);
         return repository.saveAndFlush(entity);
     }
 
     public BankSlips payBankSlips(UUID id, BankSlipsPayDTO dto)
     {       
-        BankSlips entity = repository.getOne(id);        
+        BankSlips entity = repository.getOne(id);
+        entity.setStatus(BankSlipsPaymentStatus.PAID);    
         entity.setDueDate(dto.getPaymentDate());
         return repository.saveAndFlush(entity);
     }
