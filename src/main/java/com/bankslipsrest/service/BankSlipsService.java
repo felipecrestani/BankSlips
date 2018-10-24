@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
 import java.util.Date;
+import java.util.Optional;
 import java.util.UUID;
 
 import javax.transaction.Transactional;
@@ -27,16 +28,19 @@ public class BankSlipsService{
     private BankSlipsRepository repository;
 
     public BankSlipsDetailsDTO getById(UUID id){
-        BankSlips entity = repository.getOne(id);
+        Optional<BankSlips> entity = repository.findById(id);
+
+        if(!entity.isPresent())
+            return null;
 
         BankSlipsDetailsDTO dto = new BankSlipsDetailsDTO();
-        dto.setId(entity.getId());
-        dto.setDueDate(entity.getDueDate());
-        dto.setPayment_date(entity.getPaymentDate());
-        dto.setTotalInCents(entity.getTotalInCents());
-        dto.setCustomer(entity.getCustomer());
-        dto.setStatus(entity.getStatus());
-        dto.setFine(calculateFine(entity));
+        dto.setId(entity.get().getId());
+        dto.setDueDate(entity.get().getDueDate());
+        dto.setPayment_date(entity.get().getPaymentDate());
+        dto.setTotalInCents(entity.get().getTotalInCents());
+        dto.setCustomer(entity.get().getCustomer());
+        dto.setStatus(entity.get().getStatus());
+        dto.setFine(calculateFine(entity.get()));
         return dto;
     }
 

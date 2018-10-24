@@ -2,6 +2,7 @@ package com.bankslipsrest.controller;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.UUID;
 
 import com.bankslipsrest.model.BankSlips;
 import com.bankslipsrest.model.BankSlipsPostDTO;
@@ -50,11 +51,12 @@ public class BankSlipsControllerTests {
 		.andExpect(MockMvcResultMatchers.status().isCreated());
 	}
 
-	// @Test
-	// public void testGETBankSlipsByIdNotFound() throws Exception {
-	// 	this.mockMvc.perform(MockMvcRequestBuilders.get("/rest/bankslips/{id}", UUID.randomUUID().toString()))
-	// 	.andExpect(MockMvcResultMatchers.status().isNotFound());
-	// }
+	@Test
+	@Transactional
+	public void testGETBankSlipsByIdNotFound() throws Exception {
+		this.mockMvc.perform(MockMvcRequestBuilders.get("/rest/bankslips/{id}", UUID.randomUUID()))
+		.andExpect(MockMvcResultMatchers.status().isNotFound());
+	}
 
 	@Test
 	@Transactional
