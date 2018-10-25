@@ -9,8 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
-import org.springframework.format.annotation.DateTimeFormat;
+import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 
@@ -21,24 +20,25 @@ public class BankSlips{
     @Id @GeneratedValue()
     private UUID id;
 
-    @Column
-    @DateTimeFormat(pattern = "yyyy-dd-mm")
+    @Column(nullable = false)
+	  @NotNull
     private LocalDate dueDate;
 
-    @DateTimeFormat(pattern = "yyyy-dd-mm")
     private LocalDate paymentDate;
 
     @Column(nullable = false, scale = 16, precision = 0)
+    @NotNull
     private BigDecimal totalInCents;
 
     @Column 
     private String customer;
     
     @Column
+    @NotNull
     private BankSlipsPaymentStatus status;
 
     public BigDecimal getFine() {
-		return BankSlipsFine.of(this.totalInCents, this.dueDate, Optional.ofNullable(paymentDate).orElse(LocalDate.now()));
+		  return BankSlipsFine.of(this.totalInCents, this.dueDate, Optional.ofNullable(paymentDate).orElse(LocalDate.now()));
 	}
 
 }

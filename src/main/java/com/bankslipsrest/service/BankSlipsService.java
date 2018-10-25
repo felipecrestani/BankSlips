@@ -51,8 +51,7 @@ public class BankSlipsService{
     @Transactional
     public BankSlips createBankSlips(BankSlipsPostDTO dto){
         BankSlips entity = new BankSlips();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MMM-dd");
-        entity.setDueDate(LocalDate.parse(dto.getDueDate(),formatter));
+        entity.setDueDate(LocalDate.parse(dto.getDueDate()));
         entity.setTotalInCents(dto.getTotalInCents());
         entity.setCustomer(dto.getCustomer());
         entity.setStatus(BankSlipsPaymentStatus.PENDING);

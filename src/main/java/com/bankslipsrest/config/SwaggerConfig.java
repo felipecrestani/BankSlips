@@ -17,14 +17,14 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @Configuration
 @EnableSwagger2
-public class BaseSwaggerConfig {
+public class SwaggerConfig {
 
     public String getTitle() {
-        return "Test API";
+        return "Bank Slips API";
     }
 
     public String getDescription(){
-        return "Test API";
+        return "Bank Slips API";
     }
 
     public String getVersion(){
