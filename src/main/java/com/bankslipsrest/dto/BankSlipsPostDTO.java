@@ -1,7 +1,7 @@
 package com.bankslipsrest.dto;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.validation.constraints.NotNull;
 
@@ -13,7 +13,7 @@ import lombok.Data;
 public class BankSlipsPostDTO{
     @NotNull
     @JsonProperty("due_date")
-    private Date dueDate;
+    private LocalDate dueDate;
     @NotNull
     @JsonProperty("total_in_cents")
     private BigDecimal totalInCents;

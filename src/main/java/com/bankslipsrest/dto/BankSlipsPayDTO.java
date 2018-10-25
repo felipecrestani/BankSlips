@@ -1,6 +1,6 @@
 package com.bankslipsrest.dto;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.validation.constraints.NotNull;
 
@@ -13,5 +13,5 @@ public class BankSlipsPayDTO{
 
     @JsonProperty("payment_date")
     @NotNull
-    private Date paymentDate ;
+    private LocalDate paymentDate ;
 }

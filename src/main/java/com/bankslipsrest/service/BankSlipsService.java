@@ -38,30 +38,13 @@ public class BankSlipsService{
         dto.setTotalInCents(entity.getTotalInCents());
         dto.setCustomer(entity.getCustomer());
         dto.setStatus(entity.getStatus());
-        dto.setFine(calculateFine(entity));
+        dto.setFine(entity.getFine());
         return dto;
     }
 
     public List<BankSlips> getAll(){
         return repository.findAll();
     }
-    
-
-    private BigDecimal calculateFine(BankSlips entity) {
-        LocalDate dueDate = toLocalDate(entity.getDueDate());
-        int delayedDays = Period.between(dueDate, LocalDate.now()).getDays();
-
-        BigDecimal finePercent = BigDecimal.ONE;
-
-        if(delayedDays <= 10)
-            finePercent = BigDecimal.valueOf(0.5);
-
-        return entity.getTotalInCents().add(finePercent.multiply(BigDecimal.valueOf(delayedDays)));
-    }
-
-    private LocalDate toLocalDate(Date date) {
-        return date.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-    } 
 
     public void deleteById(UUID id) {
         repository.deleteById(id);

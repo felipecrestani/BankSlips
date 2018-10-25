@@ -3,6 +3,7 @@ package com.bankslipsrest.service;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.UUID;
 
@@ -29,7 +30,7 @@ public class BankSlipsServiceTests extends DemoApplicationTests {
 	public void setUp() {
 		bankSlipsPostDTO = new BankSlipsPostDTO();
 		bankSlipsPostDTO.setCustomer("Dents Company S.A");
-		bankSlipsPostDTO.setDueDate(new Date(2018,10,1));
+		bankSlipsPostDTO.setDueDate(LocalDate.of(2018,10,1));
 		bankSlipsPostDTO.setTotalInCents(BigDecimal.valueOf(1000));
 	}
 
@@ -50,7 +51,7 @@ public class BankSlipsServiceTests extends DemoApplicationTests {
 		assertBankSlips(bankslip,bankslip.getId(), bankslip.getTotalInCents(), bankslip.getDueDate(), bankslip.getStatus());				
 	}
 
-	private void assertBankSlips(BankSlips saved, UUID id, BigDecimal totalInCents, Date dueDate, BankSlipsPaymentStatus status) {
+	private void assertBankSlips(BankSlips saved, UUID id, BigDecimal totalInCents, LocalDate dueDate, BankSlipsPaymentStatus status) {
 		assertThat(id.toString().length() == 36);
 		assertThat(saved.getCustomer()).isEqualTo("Dents Company S.A");
 		assertThat(saved.getTotalInCents()).isEqualTo(totalInCents);

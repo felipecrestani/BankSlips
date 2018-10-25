@@ -1,7 +1,8 @@
 package com.bankslipsrest.entity;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
+import java.util.Optional;
 import java.util.UUID;
 
 import javax.persistence.Column;
@@ -22,10 +23,10 @@ public class BankSlips{
 
     @Column
     @DateTimeFormat(pattern = "yyyy-dd-mm")
-    private Date dueDate;
+    private LocalDate dueDate;
 
     @DateTimeFormat(pattern = "yyyy-dd-mm")
-    private Date paymentDate;
+    private LocalDate paymentDate;
 
     @Column(nullable = false, scale = 16, precision = 0)
     private BigDecimal totalInCents;
@@ -35,5 +36,9 @@ public class BankSlips{
     
     @Column
     private BankSlipsPaymentStatus status;
+
+    public BigDecimal getFine() {
+		return BankSlipsFine.of(this.totalInCents, this.dueDate, Optional.ofNullable(paymentDate).orElse(LocalDate.now()));
+	}
 
 }
