@@ -3,12 +3,12 @@ package com.bankslipsrest.controller;
 import java.util.List;
 import java.util.UUID;
 
+import com.bankslipsrest.dto.BankSlipsCancelDTO;
+import com.bankslipsrest.dto.BankSlipsDetailsDTO;
+import com.bankslipsrest.dto.BankSlipsPayDTO;
+import com.bankslipsrest.dto.BankSlipsPostDTO;
+import com.bankslipsrest.entity.BankSlips;
 import com.bankslipsrest.exception.ApiException;
-import com.bankslipsrest.model.BankSlips;
-import com.bankslipsrest.model.BankSlipsCancelDTO;
-import com.bankslipsrest.model.BankSlipsDetailsDTO;
-import com.bankslipsrest.model.BankSlipsPayDTO;
-import com.bankslipsrest.model.BankSlipsPostDTO;
 import com.bankslipsrest.service.BankSlipsService;
 
 import org.springframework.beans.factory.annotation.Autowired;

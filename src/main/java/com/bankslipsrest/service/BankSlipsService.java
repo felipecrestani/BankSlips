@@ -11,12 +11,12 @@ import java.util.UUID;
 import javax.persistence.NoResultException;
 import javax.transaction.Transactional;
 
-import com.bankslipsrest.model.BankSlips;
-import com.bankslipsrest.model.BankSlipsCancelDTO;
-import com.bankslipsrest.model.BankSlipsDetailsDTO;
-import com.bankslipsrest.model.BankSlipsPayDTO;
-import com.bankslipsrest.model.BankSlipsPaymentStatus;
-import com.bankslipsrest.model.BankSlipsPostDTO;
+import com.bankslipsrest.dto.BankSlipsCancelDTO;
+import com.bankslipsrest.dto.BankSlipsDetailsDTO;
+import com.bankslipsrest.dto.BankSlipsPayDTO;
+import com.bankslipsrest.dto.BankSlipsPostDTO;
+import com.bankslipsrest.entity.BankSlips;
+import com.bankslipsrest.entity.BankSlipsPaymentStatus;
 import com.bankslipsrest.repository.BankSlipsRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;

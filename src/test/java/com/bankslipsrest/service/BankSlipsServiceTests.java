@@ -6,25 +6,18 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.UUID;
 
+import com.bankslipsrest.DemoApplicationTests;
+import com.bankslipsrest.dto.BankSlipsPostDTO;
+import com.bankslipsrest.entity.BankSlips;
+import com.bankslipsrest.entity.BankSlipsPaymentStatus;
 import com.bankslipsrest.exception.ApiException;
-import com.bankslipsrest.model.BankSlips;
-import com.bankslipsrest.model.BankSlipsDetailsDTO;
-import com.bankslipsrest.model.BankSlipsPaymentStatus;
-import com.bankslipsrest.model.BankSlipsPostDTO;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.TestPropertySource;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
-@RunWith(SpringRunner.class)
-@SpringBootTest
-@TestPropertySource(locations="classpath:test.properties") 
-public class BankSlipsServiceTests {
+public class BankSlipsServiceTests extends DemoApplicationTests {
 	
 	@Autowired
 	private BankSlipsService bankSlipsService;

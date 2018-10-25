@@ -1,4 +1,4 @@
-package com.bankslipsrest.model;
+package com.bankslipsrest.entity;
 
 import java.math.BigDecimal;
 import java.util.Date;
@@ -19,15 +19,20 @@ public class BankSlips{
 
     @Id @GeneratedValue()
     private UUID id;
+
     @Column
     @DateTimeFormat(pattern = "yyyy-dd-mm")
     private Date dueDate;
+
     @DateTimeFormat(pattern = "yyyy-dd-mm")
     private Date paymentDate;
-    @Column
+
+    @Column(nullable = false, scale = 16, precision = 0)
     private BigDecimal totalInCents;
+
     @Column 
     private String customer;
+    
     @Column
     private BankSlipsPaymentStatus status;
 

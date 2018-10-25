@@ -1,8 +1,10 @@
-package com.bankslipsrest.model;
+package com.bankslipsrest.dto;
 
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.UUID;
+
+import com.bankslipsrest.entity.BankSlipsPaymentStatus;
 
 import org.springframework.format.annotation.DateTimeFormat;
 

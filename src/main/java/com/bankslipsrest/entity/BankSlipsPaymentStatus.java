@@ -1,4 +1,4 @@
-package com.bankslipsrest.model;
+package com.bankslipsrest.entity;
 
 public enum BankSlipsPaymentStatus{
     PENDING,
