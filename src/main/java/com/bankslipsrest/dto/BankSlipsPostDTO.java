@@ -1,7 +1,6 @@
 package com.bankslipsrest.dto;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
 import javax.validation.constraints.NotNull;
 
@@ -13,10 +12,12 @@ import lombok.Data;
 public class BankSlipsPostDTO{
     @NotNull
     @JsonProperty("due_date")
-    private LocalDate dueDate;
+    private String dueDate;
+
     @NotNull
     @JsonProperty("total_in_cents")
     private BigDecimal totalInCents;
+
     @NotNull
     @JsonProperty("customer")
     private String customer;

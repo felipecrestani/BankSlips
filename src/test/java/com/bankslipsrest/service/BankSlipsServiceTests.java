@@ -30,7 +30,7 @@ public class BankSlipsServiceTests extends DemoApplicationTests {
 	public void setUp() {
 		bankSlipsPostDTO = new BankSlipsPostDTO();
 		bankSlipsPostDTO.setCustomer("Dents Company S.A");
-		bankSlipsPostDTO.setDueDate(LocalDate.of(2018,10,1));
+		bankSlipsPostDTO.setDueDate("2018-10-01");
 		bankSlipsPostDTO.setTotalInCents(BigDecimal.valueOf(1000));
 	}
 

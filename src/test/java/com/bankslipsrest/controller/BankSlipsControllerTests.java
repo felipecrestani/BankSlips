@@ -3,7 +3,7 @@ package com.bankslipsrest.controller;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.UUID;
 
 import com.bankslipsrest.DemoApplicationTests;
@@ -35,13 +35,13 @@ public class BankSlipsControllerTests extends DemoApplicationTests {
 
 		bankSlipsPostDTO = new BankSlipsPostDTO();
 		bankSlipsPostDTO.setCustomer("Dents Company S.A");
-		bankSlipsPostDTO.setDueDate(new Date(2018,10,1));
+		bankSlipsPostDTO.setDueDate("2018-10-01");
 		bankSlipsPostDTO.setTotalInCents(BigDecimal.valueOf(1000));
 	}
 
 	@Test
 	public void testPOSTBankSlips() throws Exception {
-		this.mockMvc.perform(MockMvcRequestBuilders.post("/rest/bankslips").contentType(MediaType.APPLICATION_JSON)
+		this.mockMvc.perform(MockMvcRequestBuilders.post("/rest/bankslips").contentType(MediaType.APPLICATION_JSON_UTF8)
 		.content("{\"due_date\":\"2018-10-01\",\"total_in_cents\":\"1000\",\"customer\":\"Dents Company S.A\"}"))
 		.andExpect(MockMvcResultMatchers.status().isCreated());
 	}

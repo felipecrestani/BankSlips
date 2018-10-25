@@ -1,9 +1,7 @@
 package com.bankslipsrest.service;
 
-import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.Period;
-import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -53,7 +51,8 @@ public class BankSlipsService{
     @Transactional
     public BankSlips createBankSlips(BankSlipsPostDTO dto){
         BankSlips entity = new BankSlips();
-        entity.setDueDate(dto.getDueDate());
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MMM-dd");
+        entity.setDueDate(LocalDate.parse(dto.getDueDate(),formatter));
         entity.setTotalInCents(dto.getTotalInCents());
         entity.setCustomer(dto.getCustomer());
         entity.setStatus(BankSlipsPaymentStatus.PENDING);
