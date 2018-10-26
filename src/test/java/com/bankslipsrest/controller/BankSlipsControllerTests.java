@@ -5,11 +5,17 @@ import static org.assertj.core.api.Assertions.assertThat;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
+import org.springframework.test.web.servlet.ResultActions;
+import static org.hamcrest.core.Is.is;
+
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import com.bankslipsrest.DemoApplicationTests;
 import com.bankslipsrest.dto.BankSlipsPostDTO;
 import com.bankslipsrest.entity.BankSlips;
 
+import com.bankslipsrest.entity.BankSlipsPaymentStatus;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,6 +53,13 @@ public class BankSlipsControllerTests extends DemoApplicationTests {
 	}
 
 	@Test
+	public void testDELETEBankSlips() throws Exception {
+		this.mockMvc.perform(MockMvcRequestBuilders.post("/rest/bankslips").contentType(MediaType.APPLICATION_JSON_UTF8)
+				.content("{\"due_date\":\"2018-10-01\",\"total_in_cents\":\"1000\",\"customer\":\"Dents Company S.A\"}"))
+				.andExpect(MockMvcResultMatchers.status().isCreated());
+	}
+
+	@Test
 	@Transactional
 	public void testGETBankSlipsByIdNotFound() throws Exception {
 		try {
@@ -55,7 +68,13 @@ public class BankSlipsControllerTests extends DemoApplicationTests {
 		} catch (Exception e) {
 			assertThat(e.getCause()).hasMessage("Bankslip not found with the specified id");
 		}
+	}
 
+	@Test
+	@Transactional
+	public void testGETAllBankSlips() throws Exception {
+			this.mockMvc.perform(MockMvcRequestBuilders.get("/rest/bankslips"))
+					.andExpect(MockMvcResultMatchers.status().isOk());
 	}
 
 	@Test
@@ -67,4 +86,13 @@ public class BankSlipsControllerTests extends DemoApplicationTests {
 		.andExpect(MockMvcResultMatchers.status().isOk());
 	}
 
+	@Test
+	@Transactional
+	public void testDELETEBankSlipsById() throws Exception {
+		BankSlips bs = bankSlipsController.createBankSlips(bankSlipsPostDTO).getBody();
+		this.bankslip = bs;
+		ResultActions result = this.mockMvc.perform(MockMvcRequestBuilders.delete("/rest/bankslips/{id}/", bankslip.getId() ))
+		.andExpect(MockMvcResultMatchers.status().isNoContent());
+		result.andExpect(jsonPath("$.status", is(BankSlipsPaymentStatus.CANCELED.toString())));
+	}
 }

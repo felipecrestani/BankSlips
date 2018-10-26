@@ -59,9 +59,9 @@ public class BankSlipsService{
         return repository.save(entity);
     }
 
-    public BankSlips cancelBankSlips(BankSlipsCancelDTO dto)
+    public BankSlips cancelBankSlips(UUID id)
     {       
-        BankSlips entity = repository.findById(dto.getId()).orElseThrow(() -> new NoResultException("Bankslip not found with the specified id"));        
+        BankSlips entity = repository.findById(id).orElseThrow(() -> new NoResultException("Bankslip not found with the specified id"));
         entity.setStatus(BankSlipsPaymentStatus.CANCELED);
         return repository.saveAndFlush(entity);
     }
