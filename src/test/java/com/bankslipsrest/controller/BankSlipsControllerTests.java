@@ -95,4 +95,16 @@ public class BankSlipsControllerTests extends DemoApplicationTests {
 		.andExpect(MockMvcResultMatchers.status().isNoContent());
 		result.andExpect(jsonPath("$.status", is(BankSlipsPaymentStatus.CANCELED.toString())));
 	}
+
+	@Test
+	@Transactional
+	public void testPayBankSlipsById() throws Exception {
+		BankSlips bs = bankSlipsController.createBankSlips(bankSlipsPostDTO).getBody();
+		this.bankslip = bs;
+		ResultActions result = this.mockMvc.perform(MockMvcRequestBuilders.post("/rest/bankslips/{id}/payment", bankslip.getId() )
+				.contentType(MediaType.APPLICATION_JSON_UTF8)
+				.content("{\"payment_date\":\"2018-10-01\"}"))
+				.andExpect(MockMvcResultMatchers.status().isNoContent());
+		result.andExpect(jsonPath("$.status", is(BankSlipsPaymentStatus.PAID.toString())));
+	}
 }

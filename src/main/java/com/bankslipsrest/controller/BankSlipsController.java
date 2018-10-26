@@ -30,7 +30,7 @@ public class BankSlipsController{
     @Autowired
     private BankSlipsService service;
 
-    @ApiOperation(value = "Get Bank Slips by Id)")
+    @ApiOperation(value = "Get Bank Slips by Id")
 	@ApiResponses(value = { 
             @ApiResponse(code = 204, message = "No content"), 
             @ApiResponse(code = 404, message = "Bankslip not found with the specified id") 
@@ -41,7 +41,7 @@ public class BankSlipsController{
         return new ResponseEntity<BankSlipsDetailsDTO>(response, HttpStatus.OK);
     }
 
-    @ApiOperation(value = "Retorna uma lista de boletos)")
+    @ApiOperation(value = "Return All Bank Slips")
 	@ApiResponses(value = { 
 			@ApiResponse(code = 200, message = "OK") 
 	})
@@ -79,7 +79,7 @@ public class BankSlipsController{
             @ApiResponse(code = 204, message = "No content"), 
             @ApiResponse(code = 404, message = "Bankslip not found with the specified id") 
 	})
-    @PostMapping(value = "{id}", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(value = "{id}/payment", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<BankSlips> payBankSlips(@PathVariable UUID id, @RequestBody BankSlipsPayDTO dto ) throws ApiException{
         BankSlips bankSlips = service.payBankSlips(id, dto);
         return new ResponseEntity<BankSlips>(bankSlips,HttpStatus.NO_CONTENT);
