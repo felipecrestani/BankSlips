@@ -1,26 +1,15 @@
 package com.bankslipsrest.dto;
 
+import com.bankslipsrest.entity.BankSlipsPaymentStatus;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.Data;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.UUID;
 
-import com.bankslipsrest.entity.BankSlipsPaymentStatus;
-
-import org.springframework.format.annotation.DateTimeFormat;
-
-import lombok.Data;
-
 @Data
-public class BankSlipsDetailsDTO{
-
-    private UUID id;
-    @DateTimeFormat(pattern = "yyyy-dd-mm")
-    private LocalDate dueDate;
-    @DateTimeFormat(pattern = "yyyy-dd-mm")
-    private LocalDate payment_date;
-    private BigDecimal totalInCents;
-    private String customer;
+public class BankSlipsDetailsDTO extends BankSlipsDTO{
     private BigDecimal fine;
-    private BankSlipsPaymentStatus status;
-
 }

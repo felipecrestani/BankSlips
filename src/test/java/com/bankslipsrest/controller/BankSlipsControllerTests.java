@@ -1,30 +1,26 @@
 package com.bankslipsrest.controller;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
-import java.math.BigDecimal;
-import java.time.LocalDate;
-import java.util.UUID;
-import org.springframework.test.web.servlet.ResultActions;
-import static org.hamcrest.core.Is.is;
-
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import com.bankslipsrest.DemoApplicationTests;
+import com.bankslipsrest.dto.BankSlipsDTO;
 import com.bankslipsrest.dto.BankSlipsPostDTO;
-import com.bankslipsrest.entity.BankSlips;
-
 import com.bankslipsrest.entity.BankSlipsPaymentStatus;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.math.BigDecimal;
+import java.util.UUID;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.core.Is.is;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 public class BankSlipsControllerTests extends DemoApplicationTests {
 
@@ -32,7 +28,7 @@ public class BankSlipsControllerTests extends DemoApplicationTests {
 	@Autowired
 	private BankSlipsController bankSlipsController;
 
-	private BankSlips bankslip = null;	
+	private BankSlipsDTO bankSlipsDTO = null;
 	private BankSlipsPostDTO bankSlipsPostDTO = null;
 
 	@Before
@@ -80,18 +76,18 @@ public class BankSlipsControllerTests extends DemoApplicationTests {
 	@Test
 	@Transactional
 	public void testGETBankSlipsById() throws Exception {
-		BankSlips bs = bankSlipsController.createBankSlips(bankSlipsPostDTO).getBody();
-		this.bankslip = bs;		
-		this.mockMvc.perform(MockMvcRequestBuilders.get("/rest/bankslips/{id}/", bankslip.getId()))
+		BankSlipsDTO bs = bankSlipsController.createBankSlips(bankSlipsPostDTO).getBody();
+		this.bankSlipsDTO = bs;
+		this.mockMvc.perform(MockMvcRequestBuilders.get("/rest/bankslips/{id}/", bankSlipsDTO.getId()))
 		.andExpect(MockMvcResultMatchers.status().isOk());
 	}
 
 	@Test
 	@Transactional
 	public void testDELETEBankSlipsById() throws Exception {
-		BankSlips bs = bankSlipsController.createBankSlips(bankSlipsPostDTO).getBody();
-		this.bankslip = bs;
-		ResultActions result = this.mockMvc.perform(MockMvcRequestBuilders.delete("/rest/bankslips/{id}/", bankslip.getId() ))
+		BankSlipsDTO bs = bankSlipsController.createBankSlips(bankSlipsPostDTO).getBody();
+		this.bankSlipsDTO = bs;
+		ResultActions result = this.mockMvc.perform(MockMvcRequestBuilders.delete("/rest/bankslips/{id}/", bankSlipsDTO.getId() ))
 		.andExpect(MockMvcResultMatchers.status().isNoContent());
 		result.andExpect(jsonPath("$.status", is(BankSlipsPaymentStatus.CANCELED.toString())));
 	}
@@ -99,9 +95,9 @@ public class BankSlipsControllerTests extends DemoApplicationTests {
 	@Test
 	@Transactional
 	public void testPayBankSlipsById() throws Exception {
-		BankSlips bs = bankSlipsController.createBankSlips(bankSlipsPostDTO).getBody();
-		this.bankslip = bs;
-		ResultActions result = this.mockMvc.perform(MockMvcRequestBuilders.post("/rest/bankslips/{id}/payment", bankslip.getId() )
+		BankSlipsDTO bs = bankSlipsController.createBankSlips(bankSlipsPostDTO).getBody();
+		this.bankSlipsDTO = bs;
+		ResultActions result = this.mockMvc.perform(MockMvcRequestBuilders.post("/rest/bankslips/{id}/payments", bankSlipsDTO.getId() )
 				.contentType(MediaType.APPLICATION_JSON_UTF8)
 				.content("{\"payment_date\":\"2018-10-01\"}"))
 				.andExpect(MockMvcResultMatchers.status().isNoContent());

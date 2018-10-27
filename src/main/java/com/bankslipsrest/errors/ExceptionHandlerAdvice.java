@@ -54,10 +54,10 @@ public class ExceptionHandlerAdvice {
     public ResponseEntity<Map<String, Object>> handleNgAlertException(final ApiException exception,
         final WebRequest request) {
         log.error(exception.getMessage(), exception);
-        return getNGAlertMessage(exception.getMessage(), exception.getErrorKey(), HttpStatus.UNAUTHORIZED);
+        return getAlertMessage(exception.getMessage(), exception.getErrorKey(), HttpStatus.UNAUTHORIZED);
     }
 
-    private ResponseEntity<Map<String, Object>> getNGAlertMessage(final String message, String errorKey,
+    private ResponseEntity<Map<String, Object>> getAlertMessage(final String message, String errorKey,
         final HttpStatus httpStatus) {
         final Map<String, Object> errorMap = getMessageErrorMap(message, errorKey, httpStatus);
         return new ResponseEntity<>(errorMap, httpStatus);

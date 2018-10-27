@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import java.util.UUID;
 
 import com.bankslipsrest.DemoApplicationTests;
+import com.bankslipsrest.dto.BankSlipsDTO;
 import com.bankslipsrest.dto.BankSlipsPostDTO;
 import com.bankslipsrest.entity.BankSlips;
 import com.bankslipsrest.entity.BankSlipsPaymentStatus;
@@ -22,7 +23,7 @@ public class BankSlipsServiceTests extends DemoApplicationTests {
 	@Autowired
 	private BankSlipsService bankSlipsService;
 
-	private BankSlips bankslip = null;	
+	private BankSlipsDTO bankSlipsDTO = null;
 	private BankSlipsPostDTO bankSlipsPostDTO = null;
 
 	@Before
@@ -46,12 +47,12 @@ public class BankSlipsServiceTests extends DemoApplicationTests {
 	@Test
 	@Transactional
 	public void BankSlipsServiceCreate() throws Exception {
-		this.bankslip = this.bankSlipsService.createBankSlips(this.bankSlipsPostDTO);
-		assertBankSlips(bankslip,bankslip.getId(), bankslip.getTotalInCents(), bankslip.getDueDate(), bankslip.getStatus());				
+		this.bankSlipsDTO = this.bankSlipsService.createBankSlips(this.bankSlipsPostDTO);
+		assertBankSlips(bankSlipsDTO,bankSlipsDTO.getId(), bankSlipsDTO.getTotalInCents(), bankSlipsDTO.getDueDate(), bankSlipsDTO.getStatus());
 	}
 
-	private void assertBankSlips(BankSlips saved, UUID id, BigDecimal totalInCents, LocalDate dueDate, BankSlipsPaymentStatus status) {
-		assertThat(id.toString().length() == 36);
+	private void assertBankSlips(BankSlipsDTO saved, String id, BigDecimal totalInCents, String dueDate, String status) {
+		assertThat(id.length() == 36);
 		assertThat(saved.getCustomer()).isEqualTo("Dents Company S.A");
 		assertThat(saved.getTotalInCents()).isEqualTo(totalInCents);
 		assertThat(saved.getDueDate()).isEqualTo(dueDate);

@@ -13,5 +13,5 @@ public class BankSlipsPayDTO{
 
     @JsonProperty("payment_date")
     @NotNull
-    private LocalDate paymentDate ;
+    private String paymentDate ;
 }

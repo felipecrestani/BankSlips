@@ -3,7 +3,7 @@ package com.bankslipsrest.controller;
 import java.util.List;
 import java.util.UUID;
 
-import com.bankslipsrest.dto.BankSlipsCancelDTO;
+import com.bankslipsrest.dto.BankSlipsDTO;
 import com.bankslipsrest.dto.BankSlipsDetailsDTO;
 import com.bankslipsrest.dto.BankSlipsPayDTO;
 import com.bankslipsrest.dto.BankSlipsPostDTO;
@@ -46,8 +46,8 @@ public class BankSlipsController{
 			@ApiResponse(code = 200, message = "OK") 
 	})
 	@GetMapping(value = "", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-	public ResponseEntity<List<BankSlips>> get() throws ApiException{
-		List<BankSlips> bankSlipsPage = service.getAll();
+	public ResponseEntity<List<BankSlipsDTO>> get() throws ApiException{
+		List<BankSlipsDTO> bankSlipsPage = service.getAll();
 		return ResponseEntity.ok(bankSlipsPage);
 	}
     
@@ -58,9 +58,9 @@ public class BankSlipsController{
 			@ApiResponse(code = 422, message = "Invalid bankslip provided.The possible reasons are: A field of the provided bankslip was null or with invalid values")
 	})
     @PostMapping(value = "", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
-    public ResponseEntity<BankSlips> createBankSlips(@RequestBody BankSlipsPostDTO dto) throws ApiException{
-        BankSlips entity = service.createBankSlips(dto);
-        return new ResponseEntity<BankSlips>(entity,HttpStatus.CREATED);
+    public ResponseEntity<BankSlipsDTO> createBankSlips(@RequestBody BankSlipsPostDTO dto) throws ApiException{
+        BankSlipsDTO entity = service.createBankSlips(dto);
+        return new ResponseEntity<>(entity,HttpStatus.CREATED);
     }
 
     @ApiOperation(value = "Cancel a BankSlips")
@@ -79,7 +79,7 @@ public class BankSlipsController{
             @ApiResponse(code = 204, message = "No content"), 
             @ApiResponse(code = 404, message = "Bankslip not found with the specified id") 
 	})
-    @PostMapping(value = "{id}/payment", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+    @PostMapping(value = "{id}/payments", produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
     public ResponseEntity<BankSlips> payBankSlips(@PathVariable UUID id, @RequestBody BankSlipsPayDTO dto ) throws ApiException{
         BankSlips bankSlips = service.payBankSlips(id, dto);
         return new ResponseEntity<BankSlips>(bankSlips,HttpStatus.NO_CONTENT);
