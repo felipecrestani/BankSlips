@@ -32,10 +32,9 @@ Foi utilizado os seguintes compoenentes/frameworks:
 ## Infra
 - Docker
 - Azure DevOps - CD/CI
-- Kubernetes
 
 
-## Estrutura de pastas o projeto
+## Estrutura de pastas o projeto Java
 
 - Config - Configuraçãoes do projeto
 - Controller - End Points
@@ -48,7 +47,7 @@ Foi utilizado os seguintes compoenentes/frameworks:
 
 # Iniciando a Aplicação
 
-## Iniciar local manualmente
+## Iniciar mualmente
 
 Na raiz do projeto ~/bankslips
 
@@ -70,7 +69,7 @@ Na raiz do projeto ~/bankslips
 
 Acessar http://localhost:8080/swagger-ui.html
 
-## Executar Docker
+## Executar imagem do Docker HUB
 
 
     docker push felipecrestani/bankslipsapi
