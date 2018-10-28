@@ -96,7 +96,9 @@ Resultado do Pipeline
 
 [Resultado do Pipeline][https://github.com/felipecrestani/BankSlips/blob/master/assets/CDCI.png?raw=true]
 
-O resultado final é a atualização da imagem no registry.
+O resultado final é a atualização da imagem no registry 
+
+https://hub.docker.com/r/felipecrestani/bankslipsapi/
 
 
  
