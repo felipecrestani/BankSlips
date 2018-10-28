@@ -10,7 +10,7 @@ No final do desafio vamos ter os seguintes endpoints para:
 - Pagar um boleto  
 - Cancelar um boleto
 
-# Url
+# Url de Teste
 
 Foi feito deploy utilizando CI/CD do Azure Devops na url abaixo:
 
