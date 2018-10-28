@@ -71,9 +71,7 @@ Acessar http://localhost:8080/swagger-ui.html
 
 ## Executar imagem do Docker HUB
 
-
-    docker push felipecrestani/bankslipsapi
-    docker run -d -p 8080:80 --name bankslipsapi felipecrestani/bankslipsapi
+    docker run -d -p 8080:8080 --name bankslipsapi felipecrestani/bankslipsapi
 
 
 Acessar http://localhost:8080/swagger-ui.html
@@ -84,7 +82,7 @@ Para automatizar o CD/CI foi utilizado o Azure Devops.
 
 Foi configurado o gatilho para qualquer commit na Master do projeto seja disparado o processo abaixo:
 
-[Processo de Build][https://github.com/felipecrestani/BankSlips/blob/master/assets/Test%20Build%20Docker%20Push.png?raw=true]
+![Processo de Build](https://github.com/felipecrestani/BankSlips/blob/master/assets/Test%20Build%20Docker%20Push.png?raw=true)
 
 - Get Source
 - Maven Package
@@ -93,7 +91,7 @@ Foi configurado o gatilho para qualquer commit na Master do projeto seja dispara
 
 Resultado do Pipeline
 
-[Resultado do Pipeline][https://github.com/felipecrestani/BankSlips/blob/master/assets/CDCI.png?raw=true]
+![Resultado do Pipeline](https://github.com/felipecrestani/BankSlips/blob/master/assets/CDCI.png?raw=true)
 
 O resultado final é a atualização da imagem no registry 
 
