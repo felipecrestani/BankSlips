@@ -79,8 +79,13 @@ Acessar http://localhost:8080/swagger-ui.html
 
 Acessar http://localhost:8080/swagger-ui.html
 
-## CD/CI Azure Devops
+# CD/CI Azure Devops
 
+Para automatizar o CD/CI foi utilizado o Azure Devops.
+
+Foi configurado o gatilho para que quando tiver um commit na Master do projeto dispara o processo abaixo:
+
+ 
 
 
 
