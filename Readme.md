@@ -10,6 +10,12 @@ No final do desafio vamos ter os seguintes endpoints para:
 - Pagar um boleto  
 - Cancelar um boleto
 
+# Url
+
+Foi feito deploy utilizando CI/CD do Azure Devops na url abaixo:
+
+http://bankslipsapi.eastus2.azurecontainer.io:8080/swagger-ui.html#/bank-slips-controller
+
 # Stack
 
 Foi utilizado os seguintes compoenentes/frameworks:
