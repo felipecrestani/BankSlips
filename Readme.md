@@ -52,31 +52,35 @@ Foi utilizado os seguintes compoenentes/frameworks:
 
 Na raiz do projeto ~/bankslips
 
-``` javascript
-mvn package
-java -jar banksliprest-0.0.1-SNAPSHOT.jar
-```
+####
+    mvn package
+    java -jar banksliprest-0.0.1-SNAPSHOT.jar
+####
+
 Acessar http://localhost:8080/swagger-ui.html
 
 ## Criar Imagem Docker
 
 Na raiz do projeto ~/bankslips
 
-``` javascript
-docker build -t bankslipsapi .
-docker run -d -p 8080:80 --name bankslipsapi bankslipsapi
-```
+
+    docker build -t bankslipsapi .
+    docker run -d -p 8080:80 --name bankslipsapi bankslipsapi
+
 
 Acessar http://localhost:8080/swagger-ui.html
 
 ## Executar Docker
 
-``` javascript
-docker push felipecrestani;bankslipsapi
-docker run -d -p 8080:80 --name bankslipsapi felipecrestani;bankslipsapi
-```
+
+    docker push felipecrestani/bankslipsapi
+    docker run -d -p 8080:80 --name bankslipsapi felipecrestani/bankslipsapi
+
 
 Acessar http://localhost:8080/swagger-ui.html
+
+## CD/CI Azure Devops
+
 
 
 
