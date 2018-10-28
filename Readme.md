@@ -48,7 +48,7 @@ Foi utilizado os seguintes compoenentes/frameworks:
 
 # Iniciando a Aplicação
 
-## Manualmente Local
+## Iniciar local manualmente
 
 Na raiz do projeto ~/bankslips
 
@@ -83,7 +83,21 @@ Acessar http://localhost:8080/swagger-ui.html
 
 Para automatizar o CD/CI foi utilizado o Azure Devops.
 
-Foi configurado o gatilho para que quando tiver um commit na Master do projeto dispara o processo abaixo:
+Foi configurado o gatilho para qualquer commit na Master do projeto seja disparado o processo abaixo:
+
+[Processo de Build][https://github.com/felipecrestani/BankSlips/blob/master/assets/Test%20Build%20Docker%20Push.png?raw=true]
+
+- Get Source
+- Maven Package
+- Docker Build
+- Docker Push to Docker Hub
+
+Resultado do Pipeline
+
+[Resultado do Pipeline][https://github.com/felipecrestani/BankSlips/blob/master/assets/CDCI.png?raw=true]
+
+O resultado final é a atualização da imagem no registry.
+
 
  
 
