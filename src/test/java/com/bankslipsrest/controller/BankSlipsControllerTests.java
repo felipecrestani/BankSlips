@@ -36,7 +36,7 @@ public class BankSlipsControllerTests extends DemoApplicationTests {
 		this.mockMvc = MockMvcBuilders.standaloneSetup(bankSlipsController).build();
 
 		bankSlipsPostDTO = new BankSlipsPostDTO();
-		bankSlipsPostDTO.setCustomer("Dents Company S.A");
+		bankSlipsPostDTO.setCustomer("Test Company S.A");
 		bankSlipsPostDTO.setDueDate("2018-10-01");
 		bankSlipsPostDTO.setTotalInCents(BigDecimal.valueOf(1000));
 	}
@@ -44,14 +44,14 @@ public class BankSlipsControllerTests extends DemoApplicationTests {
 	@Test
 	public void testPOSTBankSlips() throws Exception {
 		this.mockMvc.perform(MockMvcRequestBuilders.post("/rest/bankslips").contentType(MediaType.APPLICATION_JSON_UTF8)
-		.content("{\"due_date\":\"2018-10-01\",\"total_in_cents\":\"1000\",\"customer\":\"Dents Company S.A\"}"))
+		.content("{\"due_date\":\"2018-10-01\",\"total_in_cents\":\"1000\",\"customer\":\"Test Company S.A\"}"))
 		.andExpect(MockMvcResultMatchers.status().isCreated());
 	}
 
 	@Test
 	public void testDELETEBankSlips() throws Exception {
 		this.mockMvc.perform(MockMvcRequestBuilders.post("/rest/bankslips").contentType(MediaType.APPLICATION_JSON_UTF8)
-				.content("{\"due_date\":\"2018-10-01\",\"total_in_cents\":\"1000\",\"customer\":\"Dents Company S.A\"}"))
+				.content("{\"due_date\":\"2018-10-01\",\"total_in_cents\":\"1000\",\"customer\":\"Test Company S.A\"}"))
 				.andExpect(MockMvcResultMatchers.status().isCreated());
 	}
 
