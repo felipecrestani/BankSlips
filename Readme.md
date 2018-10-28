@@ -34,7 +34,7 @@ Foi utilizado os seguintes compoenentes/frameworks:
 - Azure DevOps - CD/CI
 
 
-## Estrutura de pastas o projeto Java
+## Estrutura de pastas do projeto Java
 
 - Config - Configuraçãoes do projeto
 - Controller - End Points
@@ -76,18 +76,18 @@ Acessar http://localhost:8080/swagger-ui.html
 
 Acessar http://localhost:8080/swagger-ui.html
 
-# CD/CI Azure Devops
+# CI/CD Azure Devops
 
-Para automatizar o CD/CI foi utilizado o Azure Devops.
+Para automatizar o test,build e deploy foi utilizado o Azure Devops.
 
-Foi configurado o gatilho para qualquer commit na Master do projeto seja disparado o processo abaixo:
+Foi configurado para qualquer commit na Master do projeto dispara o processo abaixo:
 
 ![Processo de Build](https://github.com/felipecrestani/BankSlips/blob/master/assets/Test%20Build%20Docker%20Push.png?raw=true)
 
-- Get Source
-- Maven Package
-- Docker Build
-- Docker Push to Docker Hub
+- Get Source - Git clone da Master
+- Maven Package - Empacota o projeto
+- Docker Build - Cria imagem docker
+- Docker Push to Docker Hub - Enviar  imagem para o registry Docker Hub
 
 Resultado do Pipeline
 
